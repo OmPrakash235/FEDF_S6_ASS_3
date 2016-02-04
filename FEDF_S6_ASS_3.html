@@ -1,42 +1,70 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>Max Sequence</title>
 	</head>
+
 	<body>
-		<div>findMaxSequence([3, 2, 3, 4, 2, 2, 4]) <p id="ms1"></p></div>
-		<div>findMaxSequence([3, 5, 4, 6, 1, 2, 3, 6, 10, 32]); <p id="ms2"></p></div>
-		<div>findMaxSequence([3, 2, 1]); <p id="ms3"></p></div>
+		<div>findMaxSequence([3, 2, 3, 4, 2, 2, 4]) <div id="ms1"></div></div>
+		<div>findMaxSequence([3, 5, 4, 6, 1, 2, 3, 6, 10, 32]); <div id="ms2"></div></div>
+		<div>findMaxSequence([3, 2, 1]); <div id="ms3"></div></div>
 	</body>
-	<script>
-		var r = '';
-		
-		function findMaxSequence(arr){
-			var res = [];
-			var temp;
-			r = '';
-			for(i=0; i<arr.length; i++){
-				if(arr[i]<arr[i+1]){
-					res.push(arr[i]);
+	<script type="text/javascript">
+		function findMaxSequence(x){
+			var l = x.length;
+			var n = new Array();
+			var t = new Array();
+			var mv = 0;
+			for(var i = 0; i < l; i++){
+				if(x[i] > mv){
+					mv = x[i];
+					n.push(mv);
+				}
+				else if(x[i] < mv){
+					if(n.length < 2){
+						n = new Array();
+						n[0] = x[i];
+						mv = x[i];
+					}
+					else{
+						t = new Array();
+						t = n;
+						n = new Array();
+						n[0] = x[i];
+						mv = x[i];
+					}
 				}
 			}
-			
-			for(i=0; i<res.length; i++){
-				if(!(isNaN(res[i]))){
-					temp = res[i].toString();
-					r = r.concat(temp);
-					r = r.concat(', ');
+			if(n.length > t.length)
+			{
+				if(n.length > 1)
+				{
+					return n;
 				}
-				else{
-					r = 'no';
+				else
+				{
+					return "NO";
+				}
+			}
+			else if(n.length < t.length && t.length > 1)
+			{
+				if(t.length > 1)
+				{
+					return t;
+				}
+				else
+				{
+					return "NO";
 				}
 			}
 		}
-		
-		findMaxSequence([3, 2, 3, 4, 2, 2, 4]);
-		document.getElementById('ms1').innerHTML = r;
-		findMaxSequence([3, 5, 4, 6, 1, 2, 3, 6, 10, 32]);
-		document.getElementById('ms2').innerHTML = r;
-		findMaxSequence([3, 2, 1]);
-		document.getElementById('ms3').innerHTML = r;
+
+		var p = findMaxSequence([3, 2, 3, 4, 2, 2, 4]);
+		document.getElementById('ms1').innerHTML = 'Output: [ ' + p + ' ]<br/><br/>';
+		var q = findMaxSequence([3, 5, 4, 6, 1, 2, 3, 6, 10, 32]);
+		document.getElementById('ms2').innerHTML = 'Output: [ ' + q + ' ]<br/><br/>';
+		var r = findMaxSequence([3, 2, 1]);
+		document.getElementById('ms3').innerHTML = 'Output: [ ' + r + ' ]<br/><br/>';
+
 	</script>
 </html>
